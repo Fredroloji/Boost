@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7mtda3k56qqv"]
+
+[ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_h2j7g"]
+[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://boost_man.tscn" id="2_lownc"]
+[ext_resource type="PackedScene" uid="uid://cf4hxdq5iqet8" path="res://moving_hazard.tscn" id="3_kd86o"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f1t0n"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_bucoq"]
+sky_material = SubResource("ProceduralSkyMaterial_f1t0n")
+
+[sub_resource type="Environment" id="Environment_q1sj2"]
+background_mode = 2
+sky = SubResource("Sky_bucoq")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpdt5"]
+albedo_color = Color(0.411765, 0.870588, 0.184314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pq34"]
+albedo_color = Color(0.611765, 0.258824, 0.858824, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66av1"]
+albedo_color = Color(0.239216, 0.239216, 0.462745, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q1sj2")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 8.18924e-09, 0.995603, 0.0936739, -8.70384e-08, 0.0936739, -0.995603, 0, 26.1872, -41.282)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Pads" type="Node" parent="."]
+
+[node name="LandPad" type="CSGBox3D" parent="Pads" groups=["goal"]]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 37, 27.5, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_mpdt5")
+script = ExtResource("1_h2j7g")
+file_path = "res://Level/level_6.tscn"
+
+[node name="LaunchPad" type="CSGBox3D" parent="Pads"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 43.8697, 0.404407, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_5pq34")
+
+[node name="Player" parent="." instance=ExtResource("2_lownc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.8697, 1.90441, 0)
+mass = 3.0
+linear_damp = 0.1
+
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Left_Wall" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(10, 0, 0, 0, 100, 0, 0, 0, 10, 55, 17.515, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Right_Wall" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(10, 0, 0, 0, 100, 0, 0, 0, 10, -55, 17.515, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Ground" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(100, 0, 0, 0, 10, 0, 0, 0, 10, 0, -5, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Platform" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(40, 0, 0, 0, 10, 0, 0, 0, 10, 0, 25, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Platform_2" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(30, 0, 0, 0, 10, 0, 0, 0, 10, 35, 22, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Platform_3" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 10, 20, 5, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Sticking_Up_Thing" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(5, 0, 0, 0, 12, 0, 0, 0, 10, -17.5, 14, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Ceiling" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(100, 0, 0, 0, 10, 0, 0, 0, 10, 0, 45, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="animations" type="Node" parent="Hazards"]
+
+[node name="Moving_Hazard" parent="Hazards/animations" instance=ExtResource("3_kd86o")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -45.5, 24, 0)
+destination = Vector3(21, 0, 0)
+duration = 2.0
+
+[node name="Moving_Hazard2" parent="Hazards/animations" instance=ExtResource("3_kd86o")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2, 2.5, 0)
+destination = Vector3(0, 35, 0)
+duration = 2.5

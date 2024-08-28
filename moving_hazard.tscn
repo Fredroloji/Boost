@@ -1,0 +1,61 @@
+[gd_scene load_steps=13 format=3 uid="uid://cf4hxdq5iqet8"]
+
+[ext_resource type="Script" path="res://moving_hazard.gd" id="1_we4yt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8e23l"]
+albedo_color = Color(0.862745, 0, 0.0980392, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a036j"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_epqcu"]
+material = SubResource("StandardMaterial3D_a036j")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x6mq3"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[sub_resource type="Gradient" id="Gradient_jqf7j"]
+offsets = PackedFloat32Array(0.815068, 1)
+colors = PackedColorArray(0.552941, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aptox"]
+gradient = SubResource("Gradient_jqf7j")
+
+[sub_resource type="Curve" id="Curve_g27lf"]
+_data = [Vector2(0.256337, 1), 0.0, 0.0, 0, 0, Vector2(0.746767, 0.887611), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kbj6t"]
+curve = SubResource("Curve_g27lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k32xu"]
+emission_shape = 3
+emission_box_extents = Vector3(4, 4, 4)
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_kbj6t")
+color_ramp = SubResource("GradientTexture1D_aptox")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpyfv"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_p1xmo"]
+material = SubResource("StandardMaterial3D_bpyfv")
+
+[node name="Moving_Hazard" type="AnimatableBody3D" groups=["danger"]]
+script = ExtResource("1_we4yt")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8e23l")
+mesh = SubResource("BoxMesh_epqcu")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_x6mq3")
+
+[node name="Particle" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_k32xu")
+draw_pass_1 = SubResource("BoxMesh_p1xmo")
