@@ -1,0 +1,17 @@
+res://Level/level.tscn
+res://boost_man.tscn
+res://boost_man.gd
+res://Level/level_7(maze).tscn
+res://Level/level_2.tscn
+res://Level/level_3.tscn
+res://Level/level_4.tscn
+res://Level/level_5.tscn
+res://Level/level_6.tscn
+res://Camera_Target.gd
+res://Camera.gd
+res://sky.gdshader
+res://black_hole.tscn
+res://moving_hazard.tscn
+res://black_hole_distortion.gdshader
+res://shaders/CoolMaterial.tres
+res://shaders/trippy_shader.tres

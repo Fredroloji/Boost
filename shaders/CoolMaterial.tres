@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bco72sa6tcijo"]
+
+[ext_resource type="Shader" uid="uid://3kxw33rpve8j" path="res://shaders/trippy_shader.tres" id="1_g2kqr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_g2kqr")
+shader_parameter/wave_height = 0.0
+shader_parameter/r_speed = 1.0
+shader_parameter/g_speed = 5.0
+shader_parameter/b_speed = 2.0

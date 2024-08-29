@@ -1,0 +1,15 @@
+NavigationRegion3D
+Sprite3D
+MeshInstance3D
+CollisionShape3D
+Area3D
+Node
+ProgressBar
+TextEdit
+WorldEnvironment
+GPUParticles3D
+DirectionalLight3D
+SpotLight3D
+Node3D
+RigidBody3D
+Camera3D
