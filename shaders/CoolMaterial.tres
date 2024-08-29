@@ -6,6 +6,6 @@
 render_priority = 0
 shader = ExtResource("1_g2kqr")
 shader_parameter/wave_height = 0.0
-shader_parameter/r_speed = 1.0
-shader_parameter/g_speed = 5.0
-shader_parameter/b_speed = 2.0
+shader_parameter/r_speed = 0.0
+shader_parameter/g_speed = 1.0
+shader_parameter/b_speed = 0.0

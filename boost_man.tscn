@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://sdum4va6fbl0"]
+[gd_scene load_steps=49 format=3 uid="uid://sdum4va6fbl0"]
 
 [ext_resource type="Script" path="res://boost_man.gd" id="1_gexly"]
 [ext_resource type="Script" path="res://Camera_Target.gd" id="2_a744e"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Camera.gd" id="3_cm3ub"]
 [ext_resource type="AudioStream" uid="uid://cqiyfdss8d1uy" path="res://Audio/SFX_win.ogg" id="3_gsxb8"]
 [ext_resource type="AudioStream" uid="uid://b2g4mnqh0wbva" path="res://Audio/SFX_engine.ogg" id="4_yybm8"]
+[ext_resource type="AudioStream" uid="uid://dj0ocfq4gceak" path="res://Audio/SFX_hiss.ogg" id="7_88dq0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yudap"]
 albedo_color = Color(0.898039, 0.839216, 0.282353, 1)
@@ -264,8 +265,20 @@ stream = ExtResource("2_pfwr3")
 [node name="Win_Audio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("3_gsxb8")
 
-[node name="Engine_Audio" type="AudioStreamPlayer3D" parent="Audio"]
+[node name="Engine_Audio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("4_yybm8")
+
+[node name="Brake_Audio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_yybm8")
+volume_db = -4.0
+
+[node name="Hiss_L_Audio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_88dq0")
+volume_db = 12.0
+
+[node name="Hiss_R_Audio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_88dq0")
+volume_db = 12.0
 
 [node name="Rocket_Boost" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -341,14 +354,14 @@ lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_xge2m")
 draw_pass_1 = SubResource("SphereMesh_scjs3")
 
-[node name="Particles" type="Node" parent="."]
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s0idu")
 
 [node name="Fuel_Bar" type="ProgressBar" parent="."]
-offset_right = 239.0
-offset_bottom = 27.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 264.0
+offset_bottom = 52.0
 step = 0.1
 
 [connection signal="body_entered" from="." to="." method="_collision"]

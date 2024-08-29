@@ -4,6 +4,7 @@ extends RigidBody3D
 # missiles
 # death counter
 # black holes
+# biblically accurate angel final boss
 
 #vars
 #var player_vector: Vecort3 = Vector3(0, 0, 0)
@@ -22,7 +23,10 @@ var is_transitioning: bool = false
 # audio
 @onready var explosion_audio: AudioStreamPlayer = $Audio/Explosion_Audio
 @onready var win_audio: AudioStreamPlayer = $Audio/Win_Audio
-@onready var engine_audio: AudioStreamPlayer3D = $Audio/Engine_Audio
+@onready var engine_audio: AudioStreamPlayer = $Audio/Engine_Audio
+@onready var brake_audio: AudioStreamPlayer = $Audio/Brake_Audio
+@onready var turn_L_audio: AudioStreamPlayer = $Audio/Hiss_L_Audio
+@onready var turn_R_audio: AudioStreamPlayer = $Audio/Hiss_R_Audio
 
 # particles
 @onready var boost_particle: GPUParticles3D = $Rocket_Boost
@@ -60,11 +64,11 @@ func _process(delta: float) -> void:
 		brake_particle.emitting = true
 		fuel -= delta * (brake / fuel_usage)
 		set_fuel_bar()
-		if engine_audio.playing == false:
-			engine_audio.play()
+		if brake_audio.playing == false:
+			brake_audio.play()
 	else:
-		engine_audio.stop()
 		brake_particle.emitting = false
+		brake_audio.stop()
 	
 	# turn left
 	if Input.is_action_pressed("turn_left"):
@@ -73,9 +77,12 @@ func _process(delta: float) -> void:
 		right_turn_particle.emitting = true
 		fuel -= delta * (turnForce / fuel_usage)
 		set_fuel_bar()
+		if turn_L_audio.playing == false:
+			turn_L_audio.play()
 	else:
 		right_turn_particle.emitting = false
-
+		turn_L_audio.stop()
+	
 	# turn right
 	if Input.is_action_pressed("turn_right"):
 		apply_torque(Vector3(0, 0, delta * turnForce))
@@ -83,8 +90,11 @@ func _process(delta: float) -> void:
 		left_turn_particle.emitting = true
 		fuel -= delta * (turnForce / fuel_usage)
 		set_fuel_bar()
+		if turn_R_audio.playing == false:
+			turn_R_audio.play()
 	else:
 		left_turn_particle.emitting = false
+		turn_R_audio.stop()
 
 	if Input.is_action_pressed("boost"):
 		apply_central_force(basis.y * delta * boost)
@@ -143,6 +153,8 @@ func crash() -> void:
 	right_turn_particle.emitting = false
 	left_turn_particle.emitting = false
 	engine_audio.stop()
+	turn_L_audio.stop()
+	turn_R_audio.stop()
 	explosion_audio.play()
 	gravity_scale *= 2
 	apply_central_force(basis.y * 1000)

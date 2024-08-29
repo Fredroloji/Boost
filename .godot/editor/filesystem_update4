@@ -15,3 +15,7 @@ res://moving_hazard.tscn
 res://black_hole_distortion.gdshader
 res://shaders/CoolMaterial.tres
 res://shaders/trippy_shader.tres
+res://Rings.gd
+res://biblically_accurate_angel.tscn
+res://Level/boss_level.tscn
+res://Eye.gd

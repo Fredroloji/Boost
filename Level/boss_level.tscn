@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxfxeak51481p"]
+
+[ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_ust05"]
+[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://boost_man.tscn" id="2_ipukg"]
+[ext_resource type="PackedScene" uid="uid://bw0e5qnsop4ej" path="res://biblically_accurate_angel.tscn" id="3_wyi4r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpdt5"]
+albedo_color = Color(0.411765, 0.870588, 0.184314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pq34"]
+albedo_color = Color(0.611765, 0.258824, 0.858824, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66av1"]
+albedo_color = Color(0.239216, 0.239216, 0.462745, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Pads" type="Node" parent="."]
+
+[node name="LandPad" type="CSGBox3D" parent="Pads" groups=["goal"]]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, -45, 7.04654, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_mpdt5")
+script = ExtResource("1_ust05")
+file_path = "res://Level/boss_level.tscn"
+
+[node name="LaunchPad" type="CSGBox3D" parent="Pads"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0.339105, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_5pq34")
+
+[node name="Player" parent="." instance=ExtResource("2_ipukg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8391, 0)
+mass = 3.0
+linear_damp = 0.1
+
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Right_Wall" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(20, 0, 0, 0, 200, 0, 0, 0, 20, -115, 100, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Left_Wall" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(20, 0, 0, 0, 200, 0, 0, 0, 20, 115, 100, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Ground_3" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(250, 0, 0, 0, 20, 0, 0, 0, 20, 0, -10, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Ceiling" type="CSGBox3D" parent="Hazards" groups=["danger"]]
+transform = Transform3D(250, 0, 0, 0, 20, 0, 0, 0, 20, 0, 210, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_66av1")
+
+[node name="Biblically_Accurate_Angel" parent="." instance=ExtResource("3_wyi4r")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 120, 0)
