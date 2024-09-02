@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cxfxeak51481p"]
 
 [ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_ust05"]
-[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://boost_man.tscn" id="2_ipukg"]
-[ext_resource type="PackedScene" uid="uid://bw0e5qnsop4ej" path="res://biblically_accurate_angel.tscn" id="3_wyi4r"]
+[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://Level/boost_man.tscn" id="2_ipukg"]
+[ext_resource type="PackedScene" uid="uid://bw0e5qnsop4ej" path="res://Level/biblically_accurate_angel.tscn" id="3_wyi4r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpdt5"]
 albedo_color = Color(0.411765, 0.870588, 0.184314, 1)

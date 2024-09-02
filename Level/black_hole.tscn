@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bupx0lpx5lop7"]
+[gd_scene load_steps=6 format=3 uid="uid://bupx0lpx5lop7"]
 
-[ext_resource type="Material" uid="uid://bco72sa6tcijo" path="res://shaders/CoolMaterial.tres" id="1_xxucl"]
+[ext_resource type="Material" uid="uid://bco72sa6tcijo" path="res://shaders/CoolMaterial.tres" id="1_n4cp6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m4wo1"]
 
@@ -8,25 +8,26 @@
 albedo_color = Color(0.239216, 0.239216, 0.462745, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_rog8i"]
-material = ExtResource("1_xxucl")
+material = ExtResource("1_n4cp6")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_44ial"]
 
 [node name="black_hole" type="Area3D"]
 gravity_space_override = 2
 gravity_point = true
-gravity_point_unit_distance = 5.0
+gravity_point_unit_distance = 1.0
 gravity_point_center = Vector3(0, 0, 0)
 gravity_direction = Vector3(0, 0, 0)
-gravity = -10.0
+gravity = 0.0
 linear_damp_space_override = 2
-linear_damp = 3.0
+linear_damp = 0.5
 
 [node name="Suction" type="CollisionShape3D" parent="."]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 0)
-visible = false
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 shape = SubResource("SphereShape3D_m4wo1")
 
 [node name="Death" type="CSGBox3D" parent="." groups=["danger"]]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, -41.8431)
 use_collision = true
 flip_faces = true
 material = SubResource("StandardMaterial3D_0awmd")
@@ -34,3 +35,7 @@ material = SubResource("StandardMaterial3D_0awmd")
 [node name="Distortion" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("SphereMesh_rog8i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_44ial")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0x2lquomjnaj"]
 
 [ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_nk4ws"]
-[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://boost_man.tscn" id="2_2m7rp"]
+[ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://Level/boost_man.tscn" id="2_2m7rp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpdt5"]
 albedo_color = Color(0.411765, 0.870588, 0.184314, 1)

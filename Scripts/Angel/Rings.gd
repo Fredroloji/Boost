@@ -4,7 +4,7 @@ extends GPUParticles3D
 @export var y_rotate: int = 0 
 @export var z_rotate: int = 0 
 
-@export var speed: float = 0.01
+@export var speed: float = 0.004
 
 func _ready() -> void:
 	pass # Replace with function body.

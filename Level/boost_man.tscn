@@ -1,12 +1,13 @@
-[gd_scene load_steps=49 format=3 uid="uid://sdum4va6fbl0"]
+[gd_scene load_steps=52 format=3 uid="uid://sdum4va6fbl0"]
 
-[ext_resource type="Script" path="res://boost_man.gd" id="1_gexly"]
-[ext_resource type="Script" path="res://Camera_Target.gd" id="2_a744e"]
-[ext_resource type="AudioStream" uid="uid://77cro8bax4hg" path="res://Audio/SFX_explode.ogg" id="2_pfwr3"]
-[ext_resource type="Script" path="res://Camera.gd" id="3_cm3ub"]
-[ext_resource type="AudioStream" uid="uid://cqiyfdss8d1uy" path="res://Audio/SFX_win.ogg" id="3_gsxb8"]
-[ext_resource type="AudioStream" uid="uid://b2g4mnqh0wbva" path="res://Audio/SFX_engine.ogg" id="4_yybm8"]
-[ext_resource type="AudioStream" uid="uid://dj0ocfq4gceak" path="res://Audio/SFX_hiss.ogg" id="7_88dq0"]
+[ext_resource type="Script" path="res://Scripts/boost_man.gd" id="1_f4e34"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="2_qe7s3"]
+[ext_resource type="Script" path="res://Scripts/Camera_Target.gd" id="3_ys30a"]
+[ext_resource type="AudioStream" uid="uid://77cro8bax4hg" path="res://Audio/SFX_explode.ogg" id="4_43ama"]
+[ext_resource type="AudioStream" uid="uid://cqiyfdss8d1uy" path="res://Audio/SFX_win.ogg" id="5_wsglc"]
+[ext_resource type="AudioStream" uid="uid://b2g4mnqh0wbva" path="res://Audio/SFX_engine.ogg" id="6_1u5rg"]
+[ext_resource type="AudioStream" uid="uid://dj0ocfq4gceak" path="res://Audio/SFX_hiss.ogg" id="7_mn48g"]
+[ext_resource type="AudioStream" uid="uid://c1lvybhukrjkx" path="res://Audio/SFX_boost.ogg" id="8_x8pul"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yudap"]
 albedo_color = Color(0.898039, 0.839216, 0.282353, 1)
@@ -16,6 +17,12 @@ size = Vector3(1, 2, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m8pxr"]
 height = 2.22487
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptipm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lki3e"]
+material = SubResource("StandardMaterial3D_ptipm")
 
 [sub_resource type="Gradient" id="Gradient_e7cpj"]
 offsets = PackedFloat32Array(0, 0.178862, 0.707317)
@@ -187,16 +194,16 @@ point_count = 5
 curve = SubResource("Curve_sh5xm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xge2m"]
+lifetime_randomness = 0.1
 emission_shape = 3
 emission_box_extents = Vector3(0.5, 1, 0.5)
 direction = Vector3(0, 1, 0)
 spread = 180.0
-gravity = Vector3(0, 2, 0)
-initial_velocity_min = 1.0
-initial_velocity_max = 2.0
+gravity = Vector3(0, 10, 0)
 scale_curve = SubResource("CurveTexture_awdjv")
 color_ramp = SubResource("GradientTexture1D_8m45q")
 turbulence_enabled = true
+turbulence_noise_scale = 2.0
 turbulence_influence_min = 0.0
 turbulence_influence_max = 0.12
 
@@ -230,18 +237,18 @@ max_contacts_reported = 10
 contact_monitor = true
 linear_damp = 1.0
 angular_damp = 3.0
-script = ExtResource("1_gexly")
+script = ExtResource("1_f4e34")
 
 [node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 top_level = true
-script = ExtResource("3_cm3ub")
+script = ExtResource("2_qe7s3")
 target = NodePath("../Camera_Target")
 lerp_speed = 0.1
 
 [node name="Camera_Target" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35)
-script = ExtResource("2_a744e")
+script = ExtResource("3_ys30a")
 
 [node name="Model" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_yudap")
@@ -257,28 +264,43 @@ light_energy = 6.0
 light_size = 2.0
 omni_range = 20.0
 
+[node name="Fuel_Bar" type="ProgressBar" parent="."]
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 264.0
+offset_bottom = 52.0
+step = 0.1
+
+[node name="Fuel_Level" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, -0.350265, -0.5)
+mesh = SubResource("BoxMesh_lki3e")
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="Explosion_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("2_pfwr3")
+stream = ExtResource("4_43ama")
 
 [node name="Win_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("3_gsxb8")
+stream = ExtResource("5_wsglc")
 
 [node name="Engine_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("4_yybm8")
+stream = ExtResource("6_1u5rg")
+volume_db = 10.0
 
 [node name="Brake_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("4_yybm8")
-volume_db = -4.0
+stream = ExtResource("6_1u5rg")
+volume_db = 6.0
 
 [node name="Hiss_L_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_88dq0")
+stream = ExtResource("7_mn48g")
 volume_db = 12.0
 
 [node name="Hiss_R_Audio" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_88dq0")
+stream = ExtResource("7_mn48g")
 volume_db = 12.0
+
+[node name="Boost_Audio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_x8pul")
 
 [node name="Rocket_Boost" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -349,19 +371,12 @@ draw_pass_1 = SubResource("PrismMesh_ihd1l")
 
 [node name="Death_Smoke" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 100
+amount = 40
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_xge2m")
 draw_pass_1 = SubResource("SphereMesh_scjs3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s0idu")
-
-[node name="Fuel_Bar" type="ProgressBar" parent="."]
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 264.0
-offset_bottom = 52.0
-step = 0.1
 
 [connection signal="body_entered" from="." to="." method="_collision"]
