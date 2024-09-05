@@ -247,7 +247,7 @@ target = NodePath("../Camera_Target")
 lerp_speed = 0.1
 
 [node name="Camera_Target" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
 script = ExtResource("3_ys30a")
 
 [node name="Model" type="MeshInstance3D" parent="."]
@@ -285,7 +285,7 @@ stream = ExtResource("5_wsglc")
 
 [node name="Engine_Audio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("6_1u5rg")
-volume_db = 10.0
+volume_db = 6.0
 
 [node name="Brake_Audio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("6_1u5rg")
@@ -301,6 +301,7 @@ volume_db = 12.0
 
 [node name="Boost_Audio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_x8pul")
+volume_db = -5.0
 
 [node name="Rocket_Boost" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

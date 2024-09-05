@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c676sejc2q5ia"]
 
-[ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_muegj"]
+[ext_resource type="Script" path="res://Scripts/LandingPad.gd" id="1_7r6ny"]
 [ext_resource type="PackedScene" uid="uid://sdum4va6fbl0" path="res://Level/boost_man.tscn" id="2_iwps1"]
 [ext_resource type="PackedScene" uid="uid://cf4hxdq5iqet8" path="res://moving_hazard.tscn" id="3_1re3e"]
 
@@ -25,7 +25,7 @@ shadow_enabled = true
 transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, -45, 0.3, 0)
 use_collision = true
 material = SubResource("StandardMaterial3D_mpdt5")
-script = ExtResource("1_muegj")
+script = ExtResource("1_7r6ny")
 file_path = "res://Level/level_4.tscn"
 
 [node name="LaunchPad" type="CSGBox3D" parent="Pads"]

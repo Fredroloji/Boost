@@ -1,10 +1,10 @@
 extends GPUParticles3D
 
-@export var x_rotate: int = 0 
-@export var y_rotate: int = 0 
-@export var z_rotate: int = 0 
+@export var x_rotate: int = 1 
+@export var y_rotate: int = 1 
+@export var z_rotate: int = 1 
 
-@export var speed: float = 0.004
+@export var speed: float = 0.003
 
 func _ready() -> void:
 	pass # Replace with function body.

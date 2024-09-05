@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://bw0e5qnsop4ej"]
+[gd_scene load_steps=23 format=3 uid="uid://bw0e5qnsop4ej"]
 
 [ext_resource type="Script" path="res://Scripts/Angel/Eye.gd" id="1_efhj0"]
+[ext_resource type="Script" path="res://Scripts/Angel/Angel.gd" id="1_tji6k"]
 [ext_resource type="Script" path="res://Scripts/Angel/Rings.gd" id="2_3lsri"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5vln"]
@@ -11,6 +12,14 @@ emission = Color(1, 1, 1, 1)
 material = SubResource("StandardMaterial3D_p5vln")
 radial_segments = 10
 rings = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhjgh"]
+albedo_color = Color(0.0235294, 0.0431373, 0.0470588, 1)
+metallic = 1.0
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_qkbm7"]
+material = SubResource("StandardMaterial3D_yhjgh")
 
 [sub_resource type="Gradient" id="Gradient_1j6xr"]
 offsets = PackedFloat32Array(0, 0.154472, 0.845528, 1)
@@ -49,30 +58,23 @@ metallic_specular = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_conpv"]
 material = SubResource("StandardMaterial3D_1l4ic")
-radius = 0.4
 height = 0.54
 radial_segments = 10
 rings = 5
 is_hemisphere = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhjgh"]
-albedo_color = Color(0.0235294, 0.0431373, 0.0470588, 1)
-metallic = 1.0
-metallic_specular = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_qkbm7"]
-material = SubResource("StandardMaterial3D_yhjgh")
+[sub_resource type="SphereShape3D" id="SphereShape3D_nn02h"]
 
 [sub_resource type="Gradient" id="Gradient_kppv8"]
-offsets = PackedFloat32Array(0, 0.666667)
-colors = PackedColorArray(1, 1, 1, 1, 0.142857, 0.142857, 0.142857, 1)
+offsets = PackedFloat32Array(0, 0.479675)
+colors = PackedColorArray(1, 1, 1, 1, 0.165217, 0.165217, 0.165217, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_2psuu"]
 gradient = SubResource("Gradient_kppv8")
 
 [sub_resource type="Curve" id="Curve_dwa8y"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.617519, 0.834513), -0.487964, -0.487964, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.147443, 1), 0.0, 0.0, 0, 0, Vector2(0.663221, 0.70708), -0.975929, -0.975929, 0, 0, Vector2(1, 0), -2.3048, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_mp3td"]
 curve = SubResource("Curve_dwa8y")
@@ -106,36 +108,58 @@ radial_segments = 12
 rings = 8
 
 [node name="Biblically_Accurate_Angel" type="Node3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(13, 0, 0, 0, 13, 0, 0, 0, 13, 0, 0, 0)
+script = ExtResource("1_tji6k")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="Collision" type="CSGSphere3D" parent="." groups=["danger"]]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+use_collision = true
+smooth_faces = false
+
+[node name="Eye" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_jhibn")
+script = ExtResource("1_efhj0")
+
+[node name="Pupil_Collision" type="CSGSphere3D" parent="Eye" groups=["danger"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -0.432983)
+use_collision = true
+smooth_faces = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Eye"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 light_color = Color(1, 1, 0, 1)
 light_energy = 40.0
 omni_range = 70.0
 omni_attenuation = 0.225313
 
-[node name="Eye" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_jhibn")
-script = ExtResource("1_efhj0")
+[node name="Pupil" type="MeshInstance3D" parent="Eye"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.412276)
+mesh = SubResource("SphereMesh_qkbm7")
 
 [node name="Small_Eyes" type="GPUParticles3D" parent="Eye"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-amount = 50
-lifetime = 2.0
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_apgdt")
 draw_passes = 2
 draw_pass_1 = SubResource("SphereMesh_yynls")
 draw_pass_2 = SubResource("SphereMesh_conpv")
 
-[node name="Death" type="CSGSphere3D" parent="Eye" groups=["danger"]]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+[node name="Suction" type="Area3D" parent="."]
+gravity_space_override = 2
+gravity_point = true
+gravity_point_unit_distance = 5.0
+gravity_point_center = Vector3(0, 0, -1)
+gravity_direction = Vector3(0, 0, -1)
+gravity = 100.0
 
-[node name="Pupil" type="MeshInstance3D" parent="Eye"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.412276)
-mesh = SubResource("SphereMesh_qkbm7")
+[node name="Suction_Area" type="CollisionShape3D" parent="Suction"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("SphereShape3D_nn02h")
 
 [node name="Rings" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+cast_shadow = 0
 amount = 160
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_7wnn0")
@@ -143,25 +167,23 @@ draw_pass_1 = SubResource("SphereMesh_ltw83")
 script = ExtResource("2_3lsri")
 x_rotate = -1
 y_rotate = -1
-z_rotate = 1
 
 [node name="Rings_2" type="GPUParticles3D" parent="."]
-transform = Transform3D(1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1.1, -4.80825e-08, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
+cast_shadow = 0
 amount = 160
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_7wnn0")
 draw_pass_1 = SubResource("SphereMesh_ltw83")
 script = ExtResource("2_3lsri")
-x_rotate = 1
-y_rotate = 1
 z_rotate = -1
 
 [node name="Rings_3" type="GPUParticles3D" parent="."]
-transform = Transform3D(-5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, 0, 0, 1.2, 0, 0, 0)
+transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, 0, 0, 0)
+cast_shadow = 0
 amount = 160
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_7wnn0")
 draw_pass_1 = SubResource("SphereMesh_ltw83")
 script = ExtResource("2_3lsri")
 x_rotate = -1
-y_rotate = 1

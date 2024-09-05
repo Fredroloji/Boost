@@ -1,8 +1,10 @@
-res://Level/boost_man.tscn
+res://moving_hazard.tscn
 res://shaders/trippy_shader.tres
 res://shaders/CoolMaterial.tres
 res://shaders/sky.gdshader
 res://shaders/black_hole_distortion.gdshader
+res://Scripts/Angel/Angel.gd
+res://Level/boost_man.tscn
 res://Level/level.tscn
 res://Level/level_2.tscn
 res://Level/level_3.tscn
@@ -13,4 +15,4 @@ res://Level/level_7(maze).tscn
 res://Level/biblically_accurate_angel.tscn
 res://Level/boss_level.tscn
 res://Level/black_hole.tscn
-res://Scripts/boost_man.gd
+res://Scripts/Angel/Rings.gd

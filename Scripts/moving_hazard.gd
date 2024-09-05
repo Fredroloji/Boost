@@ -15,7 +15,3 @@ func _ready() -> void:
 	tween.tween_interval(wait_time)
 	tween.tween_property(self, "global_position", global_position, duration)
 	tween.tween_interval(wait_time)
-
-
-func _process(delta: float) -> void:
-	pass
