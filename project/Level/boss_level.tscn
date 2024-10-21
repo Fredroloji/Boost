@@ -26,7 +26,7 @@ transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, -45, 7.04654, 0)
 use_collision = true
 material = SubResource("StandardMaterial3D_mpdt5")
 script = ExtResource("1_3xpvl")
-file_path = "res://Level/boss_level.tscn"
+file_path = "res://Level/level.tscn"
 
 [node name="LaunchPad" type="CSGBox3D" parent="Pads"]
 transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0.339105, 0)
